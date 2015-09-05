@@ -13,6 +13,21 @@
 		94070CFE1B39F29300708C8E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94070CFD1B39F29300708C8E /* Images.xcassets */; };
 		94070D011B39F29300708C8E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94070CFF1B39F29300708C8E /* LaunchScreen.xib */; };
 		94070D0D1B39F29300708C8E /* SwiftAndPHPSignUpExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94070D0C1B39F29300708C8E /* SwiftAndPHPSignUpExampleTests.swift */; };
+		94070D1B1B3A162F00708C8E /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94070D1A1B3A162F00708C8E /* SignUpViewController.swift */; };
+		9434BCEE1B45FD9B0071EB54 /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9434BCED1B45FD9B0071EB54 /* ForgotPasswordViewController.swift */; };
+		944E418F1B3E307F001031D0 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 944E418E1B3E307F001031D0 /* MBProgressHUD.m */; };
+		9461EEA51B3DD1FF00B786B4 /* MainPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9461EEA41B3DD1FF00B786B4 /* MainPageViewController.swift */; };
+		946FA5191B3F864500BC48E1 /* MMDrawerBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 946FA5111B3F864500BC48E1 /* MMDrawerBarButtonItem.m */; };
+		946FA51A1B3F864500BC48E1 /* MMDrawerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 946FA5131B3F864500BC48E1 /* MMDrawerController.m */; };
+		946FA51B1B3F864500BC48E1 /* MMDrawerVisualState.m in Sources */ = {isa = PBXBuildFile; fileRef = 946FA5161B3F864500BC48E1 /* MMDrawerVisualState.m */; };
+		946FA51C1B3F864500BC48E1 /* UIViewController+MMDrawerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 946FA5181B3F864500BC48E1 /* UIViewController+MMDrawerController.m */; };
+		946FA51F1B3F881200BC48E1 /* LeftSideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946FA51E1B3F881200BC48E1 /* LeftSideViewController.swift */; };
+		946FA5211B3F88F100BC48E1 /* RightSideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946FA5201B3F88F100BC48E1 /* RightSideViewController.swift */; };
+		946FA5231B3F91A000BC48E1 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946FA5221B3F91A000BC48E1 /* AboutViewController.swift */; };
+		946FA5311B3F9B5B00BC48E1 /* connectivity-bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 946FA52D1B3F9B5B00BC48E1 /* connectivity-bar.png */; };
+		946FA5321B3F9B5B00BC48E1 /* connectivity-bar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 946FA52E1B3F9B5B00BC48E1 /* connectivity-bar@2x.png */; };
+		946FA5331B3F9B5B00BC48E1 /* left_side.png in Resources */ = {isa = PBXBuildFile; fileRef = 946FA52F1B3F9B5B00BC48E1 /* left_side.png */; };
+		946FA5341B3F9B5B00BC48E1 /* left_side@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 946FA5301B3F9B5B00BC48E1 /* left_side@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +51,28 @@
 		94070D061B39F29300708C8E /* SwiftAndPHPSignUpExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftAndPHPSignUpExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		94070D0B1B39F29300708C8E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		94070D0C1B39F29300708C8E /* SwiftAndPHPSignUpExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftAndPHPSignUpExampleTests.swift; sourceTree = "<group>"; };
+		94070D1A1B3A162F00708C8E /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		9434BCED1B45FD9B0071EB54 /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
+		944E418C1B3E307F001031D0 /* SwiftAndPHPSignUpExample-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SwiftAndPHPSignUpExample-Bridging-Header.h"; sourceTree = "<group>"; };
+		944E418D1B3E307F001031D0 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		944E418E1B3E307F001031D0 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		9461EEA41B3DD1FF00B786B4 /* MainPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainPageViewController.swift; sourceTree = "<group>"; };
+		946FA5101B3F864500BC48E1 /* MMDrawerBarButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMDrawerBarButtonItem.h; sourceTree = "<group>"; };
+		946FA5111B3F864500BC48E1 /* MMDrawerBarButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMDrawerBarButtonItem.m; sourceTree = "<group>"; };
+		946FA5121B3F864500BC48E1 /* MMDrawerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMDrawerController.h; sourceTree = "<group>"; };
+		946FA5131B3F864500BC48E1 /* MMDrawerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMDrawerController.m; sourceTree = "<group>"; };
+		946FA5141B3F864500BC48E1 /* MMDrawerController+Subclass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MMDrawerController+Subclass.h"; sourceTree = "<group>"; };
+		946FA5151B3F864500BC48E1 /* MMDrawerVisualState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMDrawerVisualState.h; sourceTree = "<group>"; };
+		946FA5161B3F864500BC48E1 /* MMDrawerVisualState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMDrawerVisualState.m; sourceTree = "<group>"; };
+		946FA5171B3F864500BC48E1 /* UIViewController+MMDrawerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+MMDrawerController.h"; sourceTree = "<group>"; };
+		946FA5181B3F864500BC48E1 /* UIViewController+MMDrawerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+MMDrawerController.m"; sourceTree = "<group>"; };
+		946FA51E1B3F881200BC48E1 /* LeftSideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftSideViewController.swift; sourceTree = "<group>"; };
+		946FA5201B3F88F100BC48E1 /* RightSideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightSideViewController.swift; sourceTree = "<group>"; };
+		946FA5221B3F91A000BC48E1 /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
+		946FA52D1B3F9B5B00BC48E1 /* connectivity-bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "connectivity-bar.png"; sourceTree = "<group>"; };
+		946FA52E1B3F9B5B00BC48E1 /* connectivity-bar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "connectivity-bar@2x.png"; sourceTree = "<group>"; };
+		946FA52F1B3F9B5B00BC48E1 /* left_side.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = left_side.png; sourceTree = "<group>"; };
+		946FA5301B3F9B5B00BC48E1 /* left_side@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left_side@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,12 +114,23 @@
 		94070CF31B39F29300708C8E /* SwiftAndPHPSignUpExample */ = {
 			isa = PBXGroup;
 			children = (
+				946FA5351B3F9B6200BC48E1 /* Icons */,
+				946FA51D1B3F865200BC48E1 /* MMDrawer */,
+				944E418D1B3E307F001031D0 /* MBProgressHUD.h */,
+				944E418E1B3E307F001031D0 /* MBProgressHUD.m */,
 				94070CF61B39F29300708C8E /* AppDelegate.swift */,
 				94070CF81B39F29300708C8E /* ViewController.swift */,
 				94070CFA1B39F29300708C8E /* Main.storyboard */,
 				94070CFD1B39F29300708C8E /* Images.xcassets */,
 				94070CFF1B39F29300708C8E /* LaunchScreen.xib */,
 				94070CF41B39F29300708C8E /* Supporting Files */,
+				94070D1A1B3A162F00708C8E /* SignUpViewController.swift */,
+				9461EEA41B3DD1FF00B786B4 /* MainPageViewController.swift */,
+				944E418C1B3E307F001031D0 /* SwiftAndPHPSignUpExample-Bridging-Header.h */,
+				946FA51E1B3F881200BC48E1 /* LeftSideViewController.swift */,
+				946FA5201B3F88F100BC48E1 /* RightSideViewController.swift */,
+				946FA5221B3F91A000BC48E1 /* AboutViewController.swift */,
+				9434BCED1B45FD9B0071EB54 /* ForgotPasswordViewController.swift */,
 			);
 			path = SwiftAndPHPSignUpExample;
 			sourceTree = "<group>";
@@ -110,6 +158,33 @@
 				94070D0B1B39F29300708C8E /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		946FA51D1B3F865200BC48E1 /* MMDrawer */ = {
+			isa = PBXGroup;
+			children = (
+				946FA5101B3F864500BC48E1 /* MMDrawerBarButtonItem.h */,
+				946FA5111B3F864500BC48E1 /* MMDrawerBarButtonItem.m */,
+				946FA5121B3F864500BC48E1 /* MMDrawerController.h */,
+				946FA5131B3F864500BC48E1 /* MMDrawerController.m */,
+				946FA5141B3F864500BC48E1 /* MMDrawerController+Subclass.h */,
+				946FA5151B3F864500BC48E1 /* MMDrawerVisualState.h */,
+				946FA5161B3F864500BC48E1 /* MMDrawerVisualState.m */,
+				946FA5171B3F864500BC48E1 /* UIViewController+MMDrawerController.h */,
+				946FA5181B3F864500BC48E1 /* UIViewController+MMDrawerController.m */,
+			);
+			name = MMDrawer;
+			sourceTree = "<group>";
+		};
+		946FA5351B3F9B6200BC48E1 /* Icons */ = {
+			isa = PBXGroup;
+			children = (
+				946FA52D1B3F9B5B00BC48E1 /* connectivity-bar.png */,
+				946FA52E1B3F9B5B00BC48E1 /* connectivity-bar@2x.png */,
+				946FA52F1B3F9B5B00BC48E1 /* left_side.png */,
+				946FA5301B3F9B5B00BC48E1 /* left_side@2x.png */,
+			);
+			name = Icons;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -192,9 +267,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				946FA5341B3F9B5B00BC48E1 /* left_side@2x.png in Resources */,
+				946FA5311B3F9B5B00BC48E1 /* connectivity-bar.png in Resources */,
+				946FA5321B3F9B5B00BC48E1 /* connectivity-bar@2x.png in Resources */,
 				94070CFC1B39F29300708C8E /* Main.storyboard in Resources */,
 				94070D011B39F29300708C8E /* LaunchScreen.xib in Resources */,
 				94070CFE1B39F29300708C8E /* Images.xcassets in Resources */,
+				946FA5331B3F9B5B00BC48E1 /* left_side.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -212,7 +291,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9461EEA51B3DD1FF00B786B4 /* MainPageViewController.swift in Sources */,
+				946FA5191B3F864500BC48E1 /* MMDrawerBarButtonItem.m in Sources */,
+				946FA51A1B3F864500BC48E1 /* MMDrawerController.m in Sources */,
+				94070D1B1B3A162F00708C8E /* SignUpViewController.swift in Sources */,
+				946FA51B1B3F864500BC48E1 /* MMDrawerVisualState.m in Sources */,
+				944E418F1B3E307F001031D0 /* MBProgressHUD.m in Sources */,
+				946FA5231B3F91A000BC48E1 /* AboutViewController.swift in Sources */,
+				946FA51C1B3F864500BC48E1 /* UIViewController+MMDrawerController.m in Sources */,
 				94070CF91B39F29300708C8E /* ViewController.swift in Sources */,
+				946FA51F1B3F881200BC48E1 /* LeftSideViewController.swift in Sources */,
+				9434BCEE1B45FD9B0071EB54 /* ForgotPasswordViewController.swift in Sources */,
+				946FA5211B3F88F100BC48E1 /* RightSideViewController.swift in Sources */,
 				94070CF71B39F29300708C8E /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -340,9 +430,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = SwiftAndPHPSignUpExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "SwiftAndPHPSignUpExample/SwiftAndPHPSignUpExample-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -350,9 +443,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = SwiftAndPHPSignUpExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "SwiftAndPHPSignUpExample/SwiftAndPHPSignUpExample-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -409,6 +504,7 @@
 				94070D121B39F29300708C8E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		94070D131B39F29300708C8E /* Build configuration list for PBXNativeTarget "SwiftAndPHPSignUpExampleTests" */ = {
 			isa = XCConfigurationList;
@@ -417,6 +513,7 @@
 				94070D151B39F29300708C8E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
