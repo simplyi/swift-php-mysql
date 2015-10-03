@@ -30,7 +30,7 @@ class ForgotPasswordViewController: UIViewController {
     @IBAction func sendButtonTapped(sender: AnyObject) {
         let userEmailAddress = emailAddressTextField.text
         
-        if(userEmailAddress.isEmpty)
+        if(userEmailAddress!.isEmpty)
         {
          // Display an alert message 
             displayAlertMessage("Please provide email address")
@@ -67,20 +67,20 @@ class ForgotPasswordViewController: UIViewController {
                 if( error != nil)
                 {
                     // display an alert message 
-                    self.displayAlertMessage(error.localizedDescription)
+                    self.displayAlertMessage(error!.localizedDescription)
                     return
                 }
                 
                 
-                var err: NSError?
-                var json = NSJSONSerialization.JSONObjectWithData(data, options: .MutableContainers, error: &err) as? NSDictionary
+                do {
+                let json =  try NSJSONSerialization.JSONObjectWithData(data!, options: .MutableContainers) as? NSDictionary
                 
                 if let parseJSON = json {
                 
-                    var userEmail = parseJSON["userEmail"] as? String
+                    let userEmail = parseJSON["userEmail"] as? String
                     if(userEmail != nil)
                     {
-                        var myAlert = UIAlertController(title: "Alert", message: "We have sent you email message. Please check your Inbox.", preferredStyle: UIAlertControllerStyle.Alert);
+                        let myAlert = UIAlertController(title: "Alert", message: "We have sent you email message. Please check your Inbox.", preferredStyle: UIAlertControllerStyle.Alert);
                         let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default){(action) in
                             self.dismissViewControllerAnimated(true, completion: nil)
                         }
@@ -97,6 +97,9 @@ class ForgotPasswordViewController: UIViewController {
                     }
 
                 }
+                } catch {
+                  print(error)
+                }
                 
                 
             }
@@ -111,7 +114,7 @@ class ForgotPasswordViewController: UIViewController {
     
     func displayAlertMessage(userMessage:String)
     {
-        var myAlert = UIAlertController(title: "Alert", message:userMessage, preferredStyle: UIAlertControllerStyle.Alert);
+        let myAlert = UIAlertController(title: "Alert", message:userMessage, preferredStyle: UIAlertControllerStyle.Alert);
         let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler:nil)
         myAlert.addAction(okAction);
         self.presentViewController(myAlert, animated: true, completion: nil)

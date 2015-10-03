@@ -21,11 +21,11 @@ class MainPageViewController: UIViewController,UIImagePickerControllerDelegate, 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        let userFistName = NSUserDefaults.standardUserDefaults().stringForKey("userFirstName")
+        let userFistName = NSUserDefaults.standardUserDefaults().stringForKey("userFirstName")!
         
-        let userLastName = NSUserDefaults.standardUserDefaults().stringForKey("userLastName")
+        let userLastName = NSUserDefaults.standardUserDefaults().stringForKey("userLastName")!
         
-        var userFullName = userFistName! + " " + userLastName!
+        let userFullName = userFistName + " " + userLastName
         userFullNameLabel.text = userFullName
         
        if(profilePhotoImageView.image == nil)
@@ -58,7 +58,7 @@ class MainPageViewController: UIViewController,UIImagePickerControllerDelegate, 
     }
     
     @IBAction func selectProfilePhotoButtonTapped(sender: AnyObject) {
-        var myImagePicker = UIImagePickerController()
+        let myImagePicker = UIImagePickerController()
         myImagePicker.delegate = self
         myImagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
         
@@ -66,7 +66,7 @@ class MainPageViewController: UIViewController,UIImagePickerControllerDelegate, 
     }
     
     
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject])
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject])
     {
        profilePhotoImageView.image = info[UIImagePickerControllerOriginalImage] as? UIImage
         self.dismissViewControllerAnimated(true, completion: nil)
@@ -96,14 +96,14 @@ class MainPageViewController: UIViewController,UIImagePickerControllerDelegate, 
         let boundary = generateBoundaryString()
         request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
         
-        let imageData = UIImageJPEGRepresentation(profilePhotoImageView.image, 1)
+        let imageData = UIImageJPEGRepresentation(profilePhotoImageView.image!, 1)
         
         if(imageData==nil)  { return; }
         
-        request.HTTPBody = createBodyWithParameters(param, filePathKey: "file", imageDataKey: imageData, boundary: boundary)
+        request.HTTPBody = createBodyWithParameters(param, filePathKey: "file", imageDataKey: imageData!, boundary: boundary)
         
         
-        NSURLSession.sharedSession().dataTaskWithRequest(request, completionHandler: { (data:NSData!, response:NSURLResponse!, error:NSError!) -> Void in
+        NSURLSession.sharedSession().dataTaskWithRequest(request, completionHandler: { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
             
             dispatch_async(dispatch_get_main_queue())
             {
@@ -115,14 +115,15 @@ class MainPageViewController: UIViewController,UIImagePickerControllerDelegate, 
                 return
             }
             
-            var err: NSError?
-            var json = NSJSONSerialization.JSONObjectWithData(data, options: .MutableContainers, error: &err) as? NSDictionary
+            do {
+ 
+            let json = try NSJSONSerialization.JSONObjectWithData(data!, options: .MutableContainers) as? NSDictionary
             
             dispatch_async(dispatch_get_main_queue())
             {
             
                 if let parseJSON = json {
-                 var userId = parseJSON["userId"] as? String
+                // let userId = parseJSON["userId"] as? String
                 
                 // Display an alert message
                     let userMessage = parseJSON["message"] as? String
@@ -133,8 +134,14 @@ class MainPageViewController: UIViewController,UIImagePickerControllerDelegate, 
                     self.displayAlertMessage(userMessage)
                 }
             }
+            } catch
+            {
+                print(error)
+            }
             
         }).resume()
+            
+        
         
     }
     
@@ -158,7 +165,7 @@ class MainPageViewController: UIViewController,UIImagePickerControllerDelegate, 
     }
 */
     func createBodyWithParameters(parameters: [String: String]?, filePathKey: String?, imageDataKey: NSData, boundary: String) -> NSData {
-        var body = NSMutableData();
+        let body = NSMutableData();
         
         if parameters != nil {
             for (key, value) in parameters! {
@@ -193,7 +200,7 @@ func generateBoundaryString() -> String {
     
     func displayAlertMessage(userMessage:String)
     {
-        var myAlert = UIAlertController(title: "Alert", message:userMessage, preferredStyle: UIAlertControllerStyle.Alert);
+        let myAlert = UIAlertController(title: "Alert", message:userMessage, preferredStyle: UIAlertControllerStyle.Alert);
         
         let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler:nil)
         
@@ -205,13 +212,13 @@ func generateBoundaryString() -> String {
     
     @IBAction func leftSideButtonTapped(sender: AnyObject) {
         
-        var appDelegate:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let appDelegate:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         
        appDelegate.drawerContainer!.toggleDrawerSide(MMDrawerSide.Left, animated: true, completion: nil)
     }
     
     @IBAction func rightSideButtonTapped(sender: AnyObject) {
-        var appDelegate:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let appDelegate:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         
         appDelegate.drawerContainer!.toggleDrawerSide(MMDrawerSide.Right, animated: true, completion: nil)
     }

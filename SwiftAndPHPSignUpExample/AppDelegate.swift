@@ -67,15 +67,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let mainStoryBoard:UIStoryboard = UIStoryboard(name:"Main", bundle:nil)
         
         // Create View Controllers
-        var mainPage:MainPageViewController = mainStoryBoard.instantiateViewControllerWithIdentifier("MainPageViewController") as! MainPageViewController
+        let mainPage:MainPageViewController = mainStoryBoard.instantiateViewControllerWithIdentifier("MainPageViewController") as! MainPageViewController
         
-        var leftSideMenu:LeftSideViewController = mainStoryBoard.instantiateViewControllerWithIdentifier("LeftSideViewController") as! LeftSideViewController
+        let leftSideMenu:LeftSideViewController = mainStoryBoard.instantiateViewControllerWithIdentifier("LeftSideViewController") as! LeftSideViewController
         
-        var rightSideMenu:RightSideViewController = mainStoryBoard.instantiateViewControllerWithIdentifier("RightSideViewController") as! RightSideViewController
+        let rightSideMenu:RightSideViewController = mainStoryBoard.instantiateViewControllerWithIdentifier("RightSideViewController") as! RightSideViewController
         
-        var mainPageNav = UINavigationController(rootViewController:mainPage)
-        var leftSideMenuNav = UINavigationController(rootViewController:leftSideMenu)
-        var rightSideMenuNav = UINavigationController(rootViewController:rightSideMenu)
+        let mainPageNav = UINavigationController(rootViewController:mainPage)
+        let leftSideMenuNav = UINavigationController(rootViewController:leftSideMenu)
+        let rightSideMenuNav = UINavigationController(rootViewController:rightSideMenu)
         
         
         drawerContainer  = MMDrawerController(centerViewController: mainPageNav, leftDrawerViewController: leftSideMenuNav, rightDrawerViewController: rightSideMenuNav)

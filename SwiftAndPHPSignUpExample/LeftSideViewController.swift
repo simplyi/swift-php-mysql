@@ -31,7 +31,7 @@ class LeftSideViewController: UIViewController, UITableViewDataSource,UITableVie
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
-        var myCell = tableView.dequeueReusableCellWithIdentifier("myCell", forIndexPath: indexPath) as! UITableViewCell
+        let myCell = tableView.dequeueReusableCellWithIdentifier("myCell", forIndexPath: indexPath) 
         
         myCell.textLabel?.text = menuItems[indexPath.row]
         
@@ -44,20 +44,20 @@ class LeftSideViewController: UIViewController, UITableViewDataSource,UITableVie
         switch(indexPath.row)
         {
         case 0:
-            var mainPageViewController = self.storyboard?.instantiateViewControllerWithIdentifier("MainPageViewController") as! MainPageViewController
-            var mainPageNav = UINavigationController(rootViewController: mainPageViewController)
+            let mainPageViewController = self.storyboard?.instantiateViewControllerWithIdentifier("MainPageViewController") as! MainPageViewController
+            let mainPageNav = UINavigationController(rootViewController: mainPageViewController)
             
-           var appDelegate:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+           let appDelegate:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
             
            appDelegate.drawerContainer!.centerViewController = mainPageNav
            appDelegate.drawerContainer!.toggleDrawerSide(MMDrawerSide.Left, animated: true, completion: nil)
             
             break
         case 1:
-            var aboutViewController = self.storyboard?.instantiateViewControllerWithIdentifier("AboutViewController") as! AboutViewController
-            var aboutPageNav = UINavigationController(rootViewController: aboutViewController)
+            let aboutViewController = self.storyboard?.instantiateViewControllerWithIdentifier("AboutViewController") as! AboutViewController
+            let aboutPageNav = UINavigationController(rootViewController: aboutViewController)
             
-            var appDelegate:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+            let appDelegate:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
             
             appDelegate.drawerContainer!.centerViewController = aboutPageNav
             appDelegate.drawerContainer!.toggleDrawerSide(MMDrawerSide.Left, animated: true, completion: nil)
@@ -81,7 +81,7 @@ class LeftSideViewController: UIViewController, UITableViewDataSource,UITableVie
             break
             
         default:
-            println("Not handled")
+            print("Not handled")
         }
     }
     

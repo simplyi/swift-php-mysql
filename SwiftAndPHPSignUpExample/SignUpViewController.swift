@@ -45,7 +45,7 @@ class SignUpViewController: UIViewController {
             return
         }
         
-        if(userEmail.isEmpty || userPassword.isEmpty || userFirstName.isEmpty || userLastName.isEmpty)
+        if(userEmail!.isEmpty || userPassword!.isEmpty || userFirstName!.isEmpty || userLastName!.isEmpty)
         {
             // Display an alert message
             displayAlertMessage("All fields are required to fill in")
@@ -63,11 +63,11 @@ class SignUpViewController: UIViewController {
         let request = NSMutableURLRequest(URL:myUrl!);
         request.HTTPMethod = "POST";
         
-        let postString = "userEmail=\(userEmail)&userFirstName=\(userFirstName)&userLastName=\(userLastName)&userPassword=\(userPassword)";
+        let postString = "userEmail=\(userEmail)&userFirstName=\(userFirstName!)&userLastName=\(userLastName!)&userPassword=\(userPassword!)";
         
         request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding);
         
-        NSURLSession.sharedSession().dataTaskWithRequest(request, completionHandler: { (data:NSData!, response:NSURLResponse!, error:NSError!) -> Void in
+        NSURLSession.sharedSession().dataTaskWithRequest(request, completionHandler: { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
             
             dispatch_async(dispatch_get_main_queue())
             {
@@ -75,20 +75,20 @@ class SignUpViewController: UIViewController {
                 spinningActivity.hide(true)
                 
                 if error != nil {
-                    self.displayAlertMessage(error.localizedDescription)
+                    self.displayAlertMessage(error!.localizedDescription)
                     return
                 }
                 
-                var err: NSError?
-                var json = NSJSONSerialization.JSONObjectWithData(data, options: .MutableContainers, error: &err) as? NSDictionary
+                do {
+                let json = try NSJSONSerialization.JSONObjectWithData(data!, options: .MutableContainers) as? NSDictionary
                
                 if let parseJSON = json {
                     
-                    var userId = parseJSON["userId"] as? String
+                    let userId = parseJSON["userId"] as? String
                     
                     if( userId != nil)
                     {
-                        var myAlert = UIAlertController(title: "Alert", message: "Registration successful", preferredStyle: UIAlertControllerStyle.Alert);
+                        let myAlert = UIAlertController(title: "Alert", message: "Registration successful", preferredStyle: UIAlertControllerStyle.Alert);
                        
                         let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default){(action) in
                             
@@ -106,6 +106,9 @@ class SignUpViewController: UIViewController {
 
                     }
                     
+                    }
+                } catch{
+                    print(error)
                 }
                 
                 
@@ -119,7 +122,7 @@ class SignUpViewController: UIViewController {
 
     func displayAlertMessage(userMessage:String)
     {
-        var myAlert = UIAlertController(title: "Alert", message:userMessage, preferredStyle: UIAlertControllerStyle.Alert);
+        let myAlert = UIAlertController(title: "Alert", message:userMessage, preferredStyle: UIAlertControllerStyle.Alert);
         
         let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler:nil)
         

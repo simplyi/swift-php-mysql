@@ -28,10 +28,10 @@ class ViewController: UIViewController {
         let userPassword = userPasswordTextField.text
         
         
-        if(userEmailAddress.isEmpty || userPassword.isEmpty)
+        if(userEmailAddress!.isEmpty || userPassword!.isEmpty)
         {
           // Display an alert message
-            var myAlert = UIAlertController(title: "Alert", message:"All fields are required to fill in", preferredStyle: UIAlertControllerStyle.Alert);
+            let myAlert = UIAlertController(title: "Alert", message:"All fields are required to fill in", preferredStyle: UIAlertControllerStyle.Alert);
             let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler:nil)
             myAlert.addAction(okAction);
             self.presentViewController(myAlert, animated: true, completion: nil)
@@ -54,7 +54,7 @@ class ViewController: UIViewController {
         request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding);
         
         
-        NSURLSession.sharedSession().dataTaskWithRequest(request, completionHandler: { (data:NSData!, response:NSURLResponse!, error:NSError!) -> Void in
+        NSURLSession.sharedSession().dataTaskWithRequest(request, completionHandler: { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
            
             dispatch_async(dispatch_get_main_queue())
             {
@@ -65,7 +65,7 @@ class ViewController: UIViewController {
                if(error != nil)
                {
                   //Display an alert message
-                var myAlert = UIAlertController(title: "Alert", message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.Alert);
+                let myAlert = UIAlertController(title: "Alert", message: error!.localizedDescription, preferredStyle: UIAlertControllerStyle.Alert);
                 let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler:nil)
                 myAlert.addAction(okAction);
                 self.presentViewController(myAlert, animated: true, completion: nil)
@@ -74,8 +74,8 @@ class ViewController: UIViewController {
                 
                 
                 
-                var err: NSError?
-                var json = NSJSONSerialization.JSONObjectWithData(data, options: .MutableContainers, error: &err) as? NSDictionary
+                do {
+                let json = try NSJSONSerialization.JSONObjectWithData(data!, options: .MutableContainers) as? NSDictionary
                 
                 if let parseJSON = json {
                  
@@ -106,12 +106,16 @@ class ViewController: UIViewController {
                     } else {
                       // display an alert message
                         let userMessage = parseJSON["message"] as? String
-                        var myAlert = UIAlertController(title: "Alert", message: userMessage, preferredStyle: UIAlertControllerStyle.Alert);
+                        let myAlert = UIAlertController(title: "Alert", message: userMessage, preferredStyle: UIAlertControllerStyle.Alert);
                         let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler:nil)
                         myAlert.addAction(okAction);
                         self.presentViewController(myAlert, animated: true, completion: nil)
                     }
                 
+                    }
+                } catch
+                {
+                   print(error)
                 }
                 
                 
