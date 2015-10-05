@@ -63,7 +63,7 @@ class SignUpViewController: UIViewController {
         let request = NSMutableURLRequest(URL:myUrl!);
         request.HTTPMethod = "POST";
         
-        let postString = "userEmail=\(userEmail)&userFirstName=\(userFirstName!)&userLastName=\(userLastName!)&userPassword=\(userPassword!)";
+        let postString = "userEmail=\(userEmail!)&userFirstName=\(userFirstName!)&userLastName=\(userLastName!)&userPassword=\(userPassword!)";
         
         request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding);
         

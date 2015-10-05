@@ -49,7 +49,7 @@ class ViewController: UIViewController {
     let request = NSMutableURLRequest(URL:myUrl!);
         request.HTTPMethod = "POST";
         
-     let postString = "userEmail=\(userEmailAddress)&userPassword=\(userPassword)";
+     let postString = "userEmail=\(userEmailAddress!)&userPassword=\(userPassword!)";
         
         request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding);
         
