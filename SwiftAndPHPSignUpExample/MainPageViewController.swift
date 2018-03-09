@@ -18,28 +18,28 @@ class MainPageViewController: UIViewController,UIImagePickerControllerDelegate, 
         // Do any additional setup after loading the view.
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        let userFistName = NSUserDefaults.standardUserDefaults().stringForKey("userFirstName")!
+        let userFistName = UserDefaults.standard.string(forKey: "userFirstName")!
         
-        let userLastName = NSUserDefaults.standardUserDefaults().stringForKey("userLastName")!
+        let userLastName = UserDefaults.standard.string(forKey: "userLastName")!
         
         let userFullName = userFistName + " " + userLastName
         userFullNameLabel.text = userFullName
         
        if(profilePhotoImageView.image == nil)
        {
-          let userId = NSUserDefaults.standardUserDefaults().stringForKey("userId")
-          let imageUrl = NSURL(string:"http://localhost/SwiftAppAndMySQL/profile-pictures/\(userId!)/user-profile.jpg")
+          let userId = UserDefaults.standard.string(forKey: "userId")
+          let imageUrl = URL(string:"http://localhost/SwiftAppAndMySQL/profile-pictures/\(userId!)/user-profile.jpg")
         
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+         DispatchQueue.global(qos: .background).async {
         
-            let imageData = NSData(contentsOfURL: imageUrl!)
+            let imageData = try? Data(contentsOf: imageUrl!)
             
             if(imageData != nil)
             {
-                dispatch_async(dispatch_get_main_queue(),{
+                DispatchQueue.main.async(execute: {
                     self.profilePhotoImageView.image = UIImage(data: imageData!)
                 })
             }
@@ -57,23 +57,23 @@ class MainPageViewController: UIViewController,UIImagePickerControllerDelegate, 
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func selectProfilePhotoButtonTapped(sender: AnyObject) {
+    @IBAction func selectProfilePhotoButtonTapped(_ sender: AnyObject) {
         let myImagePicker = UIImagePickerController()
         myImagePicker.delegate = self
-        myImagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+        myImagePicker.sourceType = UIImagePickerControllerSourceType.photoLibrary
         
-        self.presentViewController(myImagePicker, animated: true, completion: nil)
+        self.present(myImagePicker, animated: true, completion: nil)
     }
     
     
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject])
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any])
     {
        profilePhotoImageView.image = info[UIImagePickerControllerOriginalImage] as? UIImage
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
         
-        let spinningActivity = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-        spinningActivity.labelText = "Loading"
-        spinningActivity.detailsLabelText = "Please wait"
+        let spinningActivity = MBProgressHUD.showAdded(to: self.view, animated: true)
+        spinningActivity?.labelText = "Loading"
+        spinningActivity?.detailsLabelText = "Please wait"
         
         
         myImageUploadRequest()
@@ -82,12 +82,12 @@ class MainPageViewController: UIViewController,UIImagePickerControllerDelegate, 
     
     func myImageUploadRequest()
     {
-       let myUrl = NSURL(string: "http://localhost/SwiftAppAndMySQL/scripts/imageUpload.php");
+       let myUrl = URL(string: "http://localhost/SwiftAppAndMySQL/scripts/imageUpload.php");
         
-        let request = NSMutableURLRequest(URL:myUrl!);
-        request.HTTPMethod = "POST";
+        var request = URLRequest(url:myUrl!)
+        request.httpMethod = "POST";
         
-        let userId:String? = NSUserDefaults.standardUserDefaults().stringForKey("userId")
+        let userId:String? = UserDefaults.standard.string(forKey: "userId")
         
         let param = [
             "userId" : userId!
@@ -100,14 +100,15 @@ class MainPageViewController: UIViewController,UIImagePickerControllerDelegate, 
         
         if(imageData==nil)  { return; }
         
-        request.HTTPBody = createBodyWithParameters(param, filePathKey: "file", imageDataKey: imageData!, boundary: boundary)
+        request.httpBody = createBodyWithParameters(param, filePathKey: "file", imageDataKey: imageData!, boundary: boundary)
         
         
-        NSURLSession.sharedSession().dataTaskWithRequest(request, completionHandler: { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
+        let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
             
-            dispatch_async(dispatch_get_main_queue())
+            
+            DispatchQueue.main.async
             {
-              MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
+              MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
             }
             
             if error != nil {
@@ -117,9 +118,9 @@ class MainPageViewController: UIViewController,UIImagePickerControllerDelegate, 
             
             do {
  
-            let json = try NSJSONSerialization.JSONObjectWithData(data!, options: .MutableContainers) as? NSDictionary
+            let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
             
-            dispatch_async(dispatch_get_main_queue())
+            DispatchQueue.main.async
             {
             
                 if let parseJSON = json {
@@ -139,7 +140,9 @@ class MainPageViewController: UIViewController,UIImagePickerControllerDelegate, 
                 print(error)
             }
             
-        }).resume()
+        }
+            
+            task.resume()
             
         
         
@@ -164,7 +167,7 @@ class MainPageViewController: UIViewController,UIImagePickerControllerDelegate, 
     
     }
 */
-    func createBodyWithParameters(parameters: [String: String]?, filePathKey: String?, imageDataKey: NSData, boundary: String) -> NSData {
+    func createBodyWithParameters(_ parameters: [String: String]?, filePathKey: String?, imageDataKey: Data, boundary: String) -> Data {
         let body = NSMutableData();
         
         if parameters != nil {
@@ -182,45 +185,45 @@ class MainPageViewController: UIViewController,UIImagePickerControllerDelegate, 
         body.appendString("--\(boundary)\r\n")
         body.appendString("Content-Disposition: form-data; name=\"\(filePathKey!)\"; filename=\"\(filename)\"\r\n")
         body.appendString("Content-Type: \(mimetype)\r\n\r\n")
-        body.appendData(imageDataKey)
+        body.append(imageDataKey)
         body.appendString("\r\n")
         
         
         
         body.appendString("--\(boundary)--\r\n")
         
-        return body
+        return body as Data
     }
  
 
 func generateBoundaryString() -> String {
    // Create and return a unique string.
-   return "Boundary-\(NSUUID().UUIDString)"
+   return "Boundary-\(UUID().uuidString)"
 }
     
-    func displayAlertMessage(userMessage:String)
+    func displayAlertMessage(_ userMessage:String)
     {
-        let myAlert = UIAlertController(title: "Alert", message:userMessage, preferredStyle: UIAlertControllerStyle.Alert);
+        let myAlert = UIAlertController(title: "Alert", message:userMessage, preferredStyle: UIAlertControllerStyle.alert);
         
-        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler:nil)
+        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler:nil)
         
         myAlert.addAction(okAction);
         
-        self.presentViewController(myAlert, animated: true, completion: nil)
+        self.present(myAlert, animated: true, completion: nil)
         
     }
     
-    @IBAction func leftSideButtonTapped(sender: AnyObject) {
+    @IBAction func leftSideButtonTapped(_ sender: AnyObject) {
         
-        let appDelegate:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let appDelegate:AppDelegate = UIApplication.shared.delegate as! AppDelegate
         
-       appDelegate.drawerContainer!.toggleDrawerSide(MMDrawerSide.Left, animated: true, completion: nil)
+       appDelegate.drawerContainer!.toggle(MMDrawerSide.left, animated: true, completion: nil)
     }
     
-    @IBAction func rightSideButtonTapped(sender: AnyObject) {
-        let appDelegate:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    @IBAction func rightSideButtonTapped(_ sender: AnyObject) {
+        let appDelegate:AppDelegate = UIApplication.shared.delegate as! AppDelegate
         
-        appDelegate.drawerContainer!.toggleDrawerSide(MMDrawerSide.Right, animated: true, completion: nil)
+        appDelegate.drawerContainer!.toggle(MMDrawerSide.right, animated: true, completion: nil)
     }
   
 
@@ -230,8 +233,8 @@ func generateBoundaryString() -> String {
 
 extension NSMutableData {
     
-    func appendString(string: String) {
-        let data = string.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)
-        appendData(data!)
+    func appendString(_ string: String) {
+        let data = string.data(using: String.Encoding.utf8, allowLossyConversion: true)
+        append(data!)
     }
 }

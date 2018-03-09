@@ -24,14 +24,14 @@ class LeftSideViewController: UIViewController, UITableViewDataSource,UITableVie
     }
     
 
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         return menuItems.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        let myCell = tableView.dequeueReusableCellWithIdentifier("myCell", forIndexPath: indexPath) 
+        let myCell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath) 
         
         myCell.textLabel?.text = menuItems[indexPath.row]
         
@@ -39,43 +39,43 @@ class LeftSideViewController: UIViewController, UITableViewDataSource,UITableVie
         
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
         switch(indexPath.row)
         {
         case 0:
-            let mainPageViewController = self.storyboard?.instantiateViewControllerWithIdentifier("MainPageViewController") as! MainPageViewController
+            let mainPageViewController = self.storyboard?.instantiateViewController(withIdentifier: "MainPageViewController") as! MainPageViewController
             let mainPageNav = UINavigationController(rootViewController: mainPageViewController)
             
-           let appDelegate:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+           let appDelegate:AppDelegate = UIApplication.shared.delegate as! AppDelegate
             
            appDelegate.drawerContainer!.centerViewController = mainPageNav
-           appDelegate.drawerContainer!.toggleDrawerSide(MMDrawerSide.Left, animated: true, completion: nil)
+           appDelegate.drawerContainer!.toggle(MMDrawerSide.left, animated: true, completion: nil)
             
             break
         case 1:
-            let aboutViewController = self.storyboard?.instantiateViewControllerWithIdentifier("AboutViewController") as! AboutViewController
+            let aboutViewController = self.storyboard?.instantiateViewController(withIdentifier: "AboutViewController") as! AboutViewController
             let aboutPageNav = UINavigationController(rootViewController: aboutViewController)
             
-            let appDelegate:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+            let appDelegate:AppDelegate = UIApplication.shared.delegate as! AppDelegate
             
             appDelegate.drawerContainer!.centerViewController = aboutPageNav
-            appDelegate.drawerContainer!.toggleDrawerSide(MMDrawerSide.Left, animated: true, completion: nil)
+            appDelegate.drawerContainer!.toggle(MMDrawerSide.left, animated: true, completion: nil)
             
             break
         case 2:
             
-            NSUserDefaults.standardUserDefaults().removeObjectForKey("userFirstName")
-            NSUserDefaults.standardUserDefaults().removeObjectForKey("userLastName")
-            NSUserDefaults.standardUserDefaults().removeObjectForKey("userId")
-            NSUserDefaults.standardUserDefaults().synchronize()
+            UserDefaults.standard.removeObject(forKey: "userFirstName")
+            UserDefaults.standard.removeObject(forKey: "userLastName")
+            UserDefaults.standard.removeObject(forKey: "userId")
+            UserDefaults.standard.synchronize()
             
             
-            let signInPage = self.storyboard?.instantiateViewControllerWithIdentifier("ViewController") as! ViewController
+            let signInPage = self.storyboard?.instantiateViewController(withIdentifier: "ViewController") as! ViewController
             
             let signInNav = UINavigationController(rootViewController: signInPage)
             
-            let appDelegate = UIApplication.sharedApplication().delegate
+            let appDelegate = UIApplication.shared.delegate
             appDelegate?.window??.rootViewController = signInNav
 
             break

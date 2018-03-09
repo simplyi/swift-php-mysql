@@ -23,11 +23,11 @@ class ForgotPasswordViewController: UIViewController {
     }
     
 
-    @IBAction func cancelButtonTapped(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+    @IBAction func cancelButtonTapped(_ sender: AnyObject) {
+        self.dismiss(animated: true, completion: nil)
     }
  
-    @IBAction func sendButtonTapped(sender: AnyObject) {
+    @IBAction func sendButtonTapped(_ sender: AnyObject) {
         let userEmailAddress = emailAddressTextField.text
         
         if(userEmailAddress!.isEmpty)
@@ -42,27 +42,27 @@ class ForgotPasswordViewController: UIViewController {
     
         
         // Display activity Indicator
-        let spiningActivity = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-        spiningActivity.labelText = "Loading"
-        spiningActivity.detailsLabelText = "Please wait"
+        let spiningActivity = MBProgressHUD.showAdded(to: self.view, animated: true)
+        spiningActivity?.labelText = "Loading"
+        spiningActivity?.detailsLabelText = "Please wait"
         
         
         // Send HTTP POST
         
-        let myUrl = NSURL(string: "http://localhost/SwiftAppAndMySQL/scripts/requestNewPassword.php");
-        let request = NSMutableURLRequest(URL:myUrl!);
-        request.HTTPMethod = "POST";
+        let myUrl = URL(string: "http://localhost/SwiftAppAndMySQL/scripts/requestNewPassword.php");
+        var request = URLRequest(url:myUrl!)
+        request.httpMethod = "POST";
         
-        let postString = "userEmail=\(userEmailAddress)";
+        let postString = "userEmail=\(String(describing: userEmailAddress))";
         
-        request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding);
+        request.httpBody = postString.data(using: String.Encoding.utf8);
         
-        let task = NSURLSession.sharedSession().dataTaskWithRequest(request) {
-            data, response, error in
+        let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
+            
             
             //Got response from server
-            dispatch_async(dispatch_get_main_queue()) {
-                spiningActivity.hide(true)
+            DispatchQueue.main.async {
+                spiningActivity?.hide(true)
                 
                 if( error != nil)
                 {
@@ -73,19 +73,19 @@ class ForgotPasswordViewController: UIViewController {
                 
                 
                 do {
-                let json =  try NSJSONSerialization.JSONObjectWithData(data!, options: .MutableContainers) as? NSDictionary
+                let json =  try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
                 
                 if let parseJSON = json {
                 
                     let userEmail = parseJSON["userEmail"] as? String
                     if(userEmail != nil)
                     {
-                        let myAlert = UIAlertController(title: "Alert", message: "We have sent you email message. Please check your Inbox.", preferredStyle: UIAlertControllerStyle.Alert);
-                        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default){(action) in
-                            self.dismissViewControllerAnimated(true, completion: nil)
+                        let myAlert = UIAlertController(title: "Alert", message: "We have sent you email message. Please check your Inbox.", preferredStyle: UIAlertControllerStyle.alert);
+                        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default){(action) in
+                            self.dismiss(animated: true, completion: nil)
                         }
                         myAlert.addAction(okAction);
-                        self.presentViewController(myAlert, animated: true, completion: nil)
+                        self.present(myAlert, animated: true, completion: nil)
  
                     } else {
                         
@@ -112,12 +112,12 @@ class ForgotPasswordViewController: UIViewController {
         
     }
     
-    func displayAlertMessage(userMessage:String)
+    func displayAlertMessage(_ userMessage:String)
     {
-        let myAlert = UIAlertController(title: "Alert", message:userMessage, preferredStyle: UIAlertControllerStyle.Alert);
-        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler:nil)
+        let myAlert = UIAlertController(title: "Alert", message:userMessage, preferredStyle: UIAlertControllerStyle.alert);
+        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler:nil)
         myAlert.addAction(okAction);
-        self.presentViewController(myAlert, animated: true, completion: nil)
+        self.present(myAlert, animated: true, completion: nil)
         
     }
     

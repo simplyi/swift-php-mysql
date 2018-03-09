@@ -26,12 +26,12 @@ class SignUpViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func cancelButtonTapped(sender: AnyObject) {
+    @IBAction func cancelButtonTapped(_ sender: AnyObject) {
         
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
 
-    @IBAction func signUpButtonTapped(sender: AnyObject) {
+    @IBAction func signUpButtonTapped(_ sender: AnyObject) {
         let userEmail = userEmailAddressTextField.text
         let userPassword = userPasswordTextField.text
         let userPasswordRepeat = userPasswordRepeatTextField.text
@@ -52,27 +52,27 @@ class SignUpViewController: UIViewController {
             return
         }
         
-        let spinningActivity = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-        spinningActivity.labelText = "Loading"
-        spinningActivity.detailsLabelText = "Please wait"
+        let spinningActivity = MBProgressHUD.showAdded(to: self.view, animated: true)
+        spinningActivity?.labelText = "Loading"
+        spinningActivity?.detailsLabelText = "Please wait"
         
         
         // Send HTTP POST
         
-        let myUrl = NSURL(string: "http://localhost/SwiftAppAndMySQL/scripts/registerUser.php");
-        let request = NSMutableURLRequest(URL:myUrl!);
-        request.HTTPMethod = "POST";
+        let myUrl = URL(string: "http://localhost/SwiftAppAndMySQL/scripts/registerUser.php");
+        var request = URLRequest(url:myUrl!)
+        request.httpMethod = "POST";
         
         let postString = "userEmail=\(userEmail!)&userFirstName=\(userFirstName!)&userLastName=\(userLastName!)&userPassword=\(userPassword!)";
         
-        request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding);
+        request.httpBody = postString.data(using: String.Encoding.utf8);
         
-        NSURLSession.sharedSession().dataTaskWithRequest(request, completionHandler: { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
-            
-            dispatch_async(dispatch_get_main_queue())
+        let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
+        
+            DispatchQueue.main.async
             {
                 
-                spinningActivity.hide(true)
+                spinningActivity?.hide(true)
                 
                 if error != nil {
                     self.displayAlertMessage(error!.localizedDescription)
@@ -80,7 +80,7 @@ class SignUpViewController: UIViewController {
                 }
                 
                 do {
-                let json = try NSJSONSerialization.JSONObjectWithData(data!, options: .MutableContainers) as? NSDictionary
+                let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
                
                 if let parseJSON = json {
                     
@@ -88,15 +88,15 @@ class SignUpViewController: UIViewController {
                     
                     if( userId != nil)
                     {
-                        let myAlert = UIAlertController(title: "Alert", message: "Registration successful", preferredStyle: UIAlertControllerStyle.Alert);
+                        let myAlert = UIAlertController(title: "Alert", message: "Registration successful", preferredStyle: UIAlertControllerStyle.alert);
                        
-                        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default){(action) in
+                        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default){(action) in
                             
-                            self.dismissViewControllerAnimated(true, completion: nil)
+                            self.dismiss(animated: true, completion: nil)
                         }
                         
                         myAlert.addAction(okAction);
-                        self.presentViewController(myAlert, animated: true, completion: nil)
+                        self.present(myAlert, animated: true, completion: nil)
                     } else {
                         let errorMessage = parseJSON["message"] as? String
                         if(errorMessage != nil)
@@ -115,20 +115,21 @@ class SignUpViewController: UIViewController {
                 
             }
             
-        }).resume()
+        }
+        task.resume()
       
         
     }
 
-    func displayAlertMessage(userMessage:String)
+    func displayAlertMessage(_ userMessage:String)
     {
-        let myAlert = UIAlertController(title: "Alert", message:userMessage, preferredStyle: UIAlertControllerStyle.Alert);
+        let myAlert = UIAlertController(title: "Alert", message:userMessage, preferredStyle: UIAlertControllerStyle.alert);
         
-        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler:nil)
+        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler:nil)
         
         myAlert.addAction(okAction);
         
-        self.presentViewController(myAlert, animated: true, completion: nil)
+        self.present(myAlert, animated: true, completion: nil)
         
     }
 
